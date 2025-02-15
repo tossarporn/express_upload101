@@ -13,7 +13,12 @@ const storage = multer.diskStorage({
     }
 })
 
-const upload = multer({storage});
+const upload = multer({
+    storage,
+    limits:{//กำหนดขนาด size
+        fileSize: 1024*1024*2 //แปลงเป็น kg byte * mg byte *2 ขนาไฟล์ไม่ถึง 2 mb //หน่วยเป็น byte
+    }
+});
 const cors = require('cors');
 
 const app = express();

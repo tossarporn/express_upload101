@@ -16,12 +16,11 @@
                 
                 // console.log(fileUpload.files[0]);//blob file
                 const selectedFile = fileUpload.files[0];
-                console.log(selectedFile);
 //selectedFile.size byte แปลงเป็น kg byte(1024)* แปลงเป็น (1024)mg byte ถ้าไม่อยากให้ file เกิน 2 mg byte ให้ *2
-                if(selectedFile.size > 1024*1024*2){
-                    alert('ไม่อนุญาตให้อัพโหลด');
-                    return false;// return เป็น false เพื่อ ไม่ให้ upload
-                }
+                // if(selectedFile.size > 1024*1024*2){
+                //     alert('ไม่อนุญาตให้อัพโหลด');
+                //     return false;// return เป็น false เพื่อ ไม่ให้ upload
+                // }
 
                 
                 const formData = new FormData()//FormData คือ web api เตรียมไว้ให้
@@ -44,7 +43,8 @@
             }
             catch(error){
                 console.log(error);
-                alert('something wrong upload')
+// นี่คือ alert error uploadFile ที่ส่งมาจาก backEnd  จะมามาแสดงที่นี่
+                alert('ขนาดไฟล์ ไม่ควรเกิน 2 mb');
             }
         }
 
