@@ -13,9 +13,19 @@
     <script>
             const uploadFile = async() =>{
                 const fileUpload = document.getElementById('fileUpload');
+                
                 // console.log(fileUpload.files[0]);//blob file
+                const selectedFile = fileUpload.files[0];
+                console.log(selectedFile);
+//selectedFile.size byte แปลงเป็น kg byte(1024)* แปลงเป็น (1024)mg byte ถ้าไม่อยากให้ file เกิน 2 mg byte ให้ *2
+                if(selectedFile.size > 1024*1024*2){
+                    alert('ไม่อนุญาตให้อัพโหลด');
+                    return false;// return เป็น false เพื่อ ไม่ให้ upload
+                }
+
+                
                 const formData = new FormData()//FormData คือ web api เตรียมไว้ให้
-            formData.append('test',fileUpload.files[0]);//ส่งkey และ ชนิดข้อมูลแบบ blob เข้าไป
+            formData.append('test',selectedFile);//ส่งkey และ ชนิดข้อมูลแบบ blob เข้าไป
             try{
                 //axios ส่งข้อมูลแบบ post ไป ที่ localhost พาท upload ส่งข้อมูลแบบ blob และ ชื่อkey ไป
                 //ยัง port 8000
