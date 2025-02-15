@@ -9,6 +9,7 @@
 <body>
     <input id="fileUpload" type="file">
     <button onclick="uploadFile()">Upload</button>
+    <progress max="100" value="0" id="uploadProgress"></progress>
     <script>
             const uploadFile = async() =>{
                 const fileUpload = document.getElementById('fileUpload');
@@ -22,7 +23,12 @@
                 //ให้ headers กำหนด pattern การส่งข้อมูล type โดยให้ content - type ส่งแบบ multipart/form-data
                     headers:{
                         'Content-Type': 'multipart/form-data'
-                    }
+                    },
+                        onUploadProgress: function(progressValue){
+                            uploadProgress.value = (progressValue.progress)*100
+                            //const percentComplete = Math.round((progressValue.loaded*100)/progressValue.total)
+
+                    }   
                 });
                 console.log('response => ',response.data);
             }
