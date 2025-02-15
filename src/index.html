@@ -16,10 +16,12 @@
                 
                 // console.log(fileUpload.files[0]);//blob file
                 const selectedFile = fileUpload.files[0];
-                if(selectedFile.type !== 'image/png'){
-                    alert('ไม่อนุญาตให้ไฟล์ประเภทนี้ upload ได้');
-                    return false ;
-                }
+
+                // if(selectedFile.type !== 'image/png'){
+                //     alert('ไม่อนุญาตให้ไฟล์ประเภทนี้ upload ได้');
+                //     return false ;
+                // } //validate size files
+
 //selectedFile.size byte แปลงเป็น kg byte(1024)* แปลงเป็น (1024)mg byte ถ้าไม่อยากให้ file เกิน 2 mg byte ให้ *2
                 // if(selectedFile.size > 1024*1024*2){
                 //     alert('ไม่อนุญาตให้อัพโหลด');
@@ -44,11 +46,13 @@
                     }   
                 });
                 console.log('response => ',response.data);
+                alert('UploadSuccessful');
             }
             catch(error){
-                console.log(error);
+                console.log("error",error);
 // นี่คือ alert error uploadFile ที่ส่งมาจาก backEnd  จะมามาแสดงที่นี่
                 alert('ขนาดไฟล์ ไม่ควรเกิน 2 mb');
+                uploadProgress.value = 0;
             }
         }
 
