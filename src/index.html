@@ -12,8 +12,27 @@
     <script>
             const uploadFile = async() =>{
                 const fileUpload = document.getElementById('fileUpload');
-                console.log(fileUpload.files[0]);
+                // console.log(fileUpload.files[0]);//blob file
+                const formData = new FormData()//FormData คือ web api เตรียมไว้ให้
+            formData.append('test',fileUpload.files[0]);//ส่งkey และ ชนิดข้อมูลแบบ blob เข้าไป
+            try{
+                //axios ส่งข้อมูลแบบ post ไป ที่ localhost พาท upload ส่งข้อมูลแบบ blob และ ชื่อkey ไป
+                //ยัง port 8000
+                const response = await axios.post('http://localhost:8000/upload',formData,{
+                //ให้ headers กำหนด pattern การส่งข้อมูล type โดยให้ content - type ส่งแบบ multipart/form-data
+                    headers:{
+                        'Content-Type': 'multipart/form-data'
+                    }
+                });
+                console.log('response => ',response.data);
             }
+            catch(error){
+                console.log(error);
+                alert('something wrong upload')
+            }
+        }
+
+           
     </script>
 </body>
 </html>
