@@ -16,6 +16,10 @@
                 
                 // console.log(fileUpload.files[0]);//blob file
                 const selectedFile = fileUpload.files[0];
+                if(selectedFile.type !== 'image/png'){
+                    alert('ไม่อนุญาตให้ไฟล์ประเภทนี้ upload ได้');
+                    return false ;
+                }
 //selectedFile.size byte แปลงเป็น kg byte(1024)* แปลงเป็น (1024)mg byte ถ้าไม่อยากให้ file เกิน 2 mg byte ให้ *2
                 // if(selectedFile.size > 1024*1024*2){
                 //     alert('ไม่อนุญาตให้อัพโหลด');
