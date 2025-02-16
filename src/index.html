@@ -61,8 +61,13 @@
                     alert("Cancel Upload");
                 }
                 else{
-            //function filter จาก backEnd จะมามาแสดง alert error uploadFile ที่นี่ 
-                    alert('ขนาดไฟล์ ไม่ควรเกิน 2 mb');
+                    if(error.response){
+                        alert(error.response.data.message);
+                    }
+                    else{
+                //function filter จาก backEnd จะมามาแสดง alert error uploadFile ที่นี่ 
+                        alert('ขนาดไฟล์ ไม่ควรเกิน 2 mb');
+                    }
                 }
                 uploadProgress.value = 0;
             }
