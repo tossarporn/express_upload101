@@ -15,21 +15,21 @@ const storage = multer.diskStorage({
 
 const upload = multer({
     storage,
-    limits:{//กำหนดขนาด size
-        fileSize: 1024*1024*2 //แปลงเป็น kg byte * mg byte *2 ขนาไฟล์ไม่ถึง 2 mb //หน่วยเป็น byte
-    },
-    fileFilter:(req,file,cb) =>{
-        if(file.mimetype === 'image/png'){
-            //allow
-            cb(null,true);//การใส่ true คือ อนุญาต ให้ upload files ได้
-        }
-        else{
-            //not allow
-            //การใส่ false คือ ไม่อนุญาต ให้ upload files ได้
-            //new Error('not allow other files without image/png') คือให้แสดง ข้อความตอบกลับไป
-            cb(new Error('not allow other files without image/png'), false)
-        }
-    }
+    // limits:{//กำหนดขนาด size
+    //     fileSize: 1024*1024*2 //แปลงเป็น kg byte * mg byte *2 ขนาไฟล์ไม่ถึง 2 mb //หน่วยเป็น byte
+    // },
+    // fileFilter:(req,file,cb) =>{
+    //     if(file.mimetype === 'image/png'){
+    //         //allow
+    //         cb(null,true);//การใส่ true คือ อนุญาต ให้ upload files ได้
+    //     }
+    //     else{
+    //         //not allow
+    //         //การใส่ false คือ ไม่อนุญาต ให้ upload files ได้
+    //         //new Error('not allow other files without image/png') คือให้แสดง ข้อความตอบกลับไป
+    //         cb(new Error('not allow other files without image/png'), false)
+    //     }
+    // }
 });
 const cors = require('cors');
 

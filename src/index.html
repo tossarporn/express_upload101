@@ -9,8 +9,10 @@
 <body>
     <input id="fileUpload" type="file">
     <button onclick="uploadFile()">Upload</button>
+    <button onclick="cancelupload()">Cancel</button>
     <progress max="100" value="0" id="uploadProgress"></progress>
     <script>
+        let currentSource;
             const uploadFile = async() =>{
                 const fileUpload = document.getElementById('fileUpload');
                 
@@ -32,6 +34,8 @@
                 const formData = new FormData()//FormData คือ web api เตรียมไว้ให้
             formData.append('test',selectedFile);//ส่งkey และ ชนิดข้อมูลแบบ blob เข้าไป
             try{
+                const source = axios.CancelToken.source();
+                currentSource = source ;
                 //axios ส่งข้อมูลแบบ post ไป ที่ localhost พาท upload ส่งข้อมูลแบบ blob และ ชื่อkey ไป
                 //ยัง port 8000
                 const response = await axios.post('http://localhost:8000/upload',formData,{
@@ -43,19 +47,33 @@
                             uploadProgress.value = (progressValue.progress)*100
                             //const percentComplete = Math.round((progressValue.loaded*100)/progressValue.total)
 
-                    }   
+                    },
+                    cancelToken: source.token
                 });
                 console.log('response => ',response.data);
                 alert('UploadSuccessful');
             }
             catch(error){
                 console.log("error",error);
-// นี่คือ alert error uploadFile ที่ส่งมาจาก backEnd  จะมามาแสดงที่นี่
-                alert('ขนาดไฟล์ ไม่ควรเกิน 2 mb');
+
+                
+                if(axios.isCancel(error)){
+                    alert("Cancel Upload");
+                }
+                else{
+            //function filter จาก backEnd จะมามาแสดง alert error uploadFile ที่นี่ 
+                    alert('ขนาดไฟล์ ไม่ควรเกิน 2 mb');
+                }
                 uploadProgress.value = 0;
             }
         }
-
+        
+        const cancelupload = ()=>{
+            if(currentSource){
+                // alert('cancel !');
+                currentSource.cancel('Cancel Upload');
+            }
+        }
            
     </script>
 </body>
