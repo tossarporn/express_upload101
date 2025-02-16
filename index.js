@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 const multer = require('multer');
 
 const storage = multer.diskStorage({
@@ -9,9 +10,15 @@ const storage = multer.diskStorage({
     filename: function(req,file,cb){
         // const uniqueSuffix = Date.now() + '-' + Math.round(Math.random());
         const fileName = `${Date.now()}-${file.originalname}`//originalname อัปโหลดไฟล์ไหนใช้ชื่อไฟล์นั้น
-        cb(null,fileName)// function call back ของ multer
+        cb(null,fileName);// function call back ของ multer
+   
+        req.on('aborted', () => {
+            const fullPath = path.join('uploads', fileName)
+            console.log('abort fullPath', fullPath)
+            fs.unlinkSync(fullPath)
+          })
     }
-})
+}) 
 
 const upload = multer({
     storage,
@@ -31,7 +38,9 @@ const upload = multer({
     //     }
     // }
 });
-const cors = require('cors');
+
+const path = require('path');//จัดการไฟล์ใน node.js
+const fs = require('fs');//จัดการไฟล์ใน node.js
 
 const app = express();
 app.use(cors());
